@@ -6,7 +6,7 @@ const ID = getCookie('id'); /** parce que c'est chiant de retaper l'id */
 const searchParams = new URLSearchParams(location.search);
 
 // This regex can filter dummy adresses
-const mailFilter = m => /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|nom = document.querySelector('form') |aero|jobs|museum)\b$/.test(m);
+const mailFilter = msg => /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|nom = document.querySelector('form') |aero|jobs|museum)\b$/.test(msg);
 
 let user = null;
 let contact_select = null;
@@ -226,5 +226,53 @@ const printContacts = () => {
 			);
 			delai++;
 		}
+	}
+};
+
+const ajoutMsg = msg => {
+	let msglist = document.querySelector('div#discussions');
+	let ndiv = document.createElement('div');
+	let msgtxt = document.createElement('p');
+
+	ndiv.classList.add('message');
+	ndiv.appendChild(msgtxt);
+
+	if (msg) {
+		ndiv.classList.add(msg.identite == user.name ? 'right' : 'left');
+		msgtxt.innerHTML = msg.message;
+		msglist.insertBefore(ndiv, msglist.lastChild);
+	} else {
+		ndiv.classList.add('edit');
+		msgtxt.contentEditable = true;
+
+		let btn = document.createElement('i');
+		btn.classList.add('material-icons');
+		btn.classList.add('message-btn');
+		btn.innerHTML = 'send';
+
+		btn.onclick = e => {
+			if (msgtxt.innerHTML) {
+				btn.classList.add('sent');
+				msgtxt.innerHTML = msgtxt.innerHTML.replaceAll('&nbsp;', '').trim();
+				msgtxt.contentEditable = false;
+
+				ajoutMsg();
+
+				sendMessage(selected_contact, msgtxt.innerHTML)
+					.then(res => {
+						if (res.etat.reponse) {
+							ndiv.classList.remove('edit');
+							ndiv.classList.add('right');
+							btn.remove();
+						} else msgtxt.classList.add('not-sent');
+					})
+					.catch(err => msgtxt.classList.add('not-sent'));
+			}
+		};
+
+		ndiv.appendChild(btn);
+		msglist.appendChild(ndiv);
+
+		msgtxt.focus();
 	}
 };
