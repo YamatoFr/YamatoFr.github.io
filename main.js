@@ -24,6 +24,29 @@ const fetchContactsInfos = ID => {
 	}
 };
 
+const retract = state => {
+	let section = document.querySelector('section');
+	let show = !section.classList.contains('retract');
+
+	if (state == 'toggle') state = show;
+
+	if (state) {
+		section.classList.add('retract');
+		document.querySelector('header').classList.add('plus');
+		document.querySelector('i#action').innerHTML = 'person_pin';
+		document.querySelector('h2#titre').innerHTML = user.name;
+		document.querySelector('p#sous_titre').innerHTML = user.mail;
+	} else {
+		section.classList.remove('retract');
+		user.selected_contact = null;
+		document.querySelector('i#action').innerHTML = 'account_circle';
+		document.querySelector('h2#titre').innerHTML = 'WhatSoup';
+		document.querySelector('p#sous_titre').innerHTML = 'Accueil';
+	}
+
+	return show;
+};
+
 const connexion = ID => {
 	const URL = API + '?information&identifiant=' + ID;
 
