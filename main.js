@@ -33,15 +33,15 @@ const retract = state => {
 	if (state) {
 		section.classList.add('retract');
 		document.querySelector('header').classList.add('plus');
-		document.querySelector('i#action').innerHTML = 'person_pin';
-		document.querySelector('h2#titre').innerHTML = user.name;
+		document.querySelector('i#account').innerHTML = 'person_pin';
+		document.querySelector('h2#titre').innerHTML = user.pseudo;
 		document.querySelector('p#sous_titre').innerHTML = user.mail;
 	} else {
 		section.classList.remove('retract');
-		user.selected_contact = null;
-		document.querySelector('i#action').innerHTML = 'account_circle';
-		document.querySelector('h2#titre').innerHTML = 'WhatSoup';
-		document.querySelector('p#sous_titre').innerHTML = 'Accueil';
+		user.contact_select = null;
+		document.querySelector('i#account').innerHTML = 'account_circle';
+		document.querySelector('h2#titre').innerHTML = 'WhatsAppLike';
+		document.querySelector('p#sous_titre').innerHTML = 'home';
 	}
 
 	return show;
@@ -261,7 +261,7 @@ const ajoutMsg = msg => {
 	ndiv.appendChild(msgtxt);
 
 	if (msg) {
-		ndiv.classList.add(msg.identite == user.name ? 'right' : 'left');
+		ndiv.classList.add(msg.identite == user.pseudo ? 'right' : 'left');
 		msgtxt.innerHTML = msg.message;
 		msglist.insertBefore(ndiv, msglist.lastChild);
 	} else {
