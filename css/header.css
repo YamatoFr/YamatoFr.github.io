@@ -1,0 +1,59 @@
+/* Generated using scss */
+section.retract-forms div#icones {
+  margin-left: -2px;
+}
+
+header {
+  display: flex;
+  /*position: absolute;*/
+  top: 0px;
+  width: 100%;
+  background-color: #202127;
+  border-bottom: 5px solid goldenrod;
+}
+
+header.plus i.btn {
+  opacity: 0.5;
+}
+
+header.plus i.btn:hover {
+  opacity: 1;
+}
+
+div#icones {
+  margin-left: -40px;
+  margin-right: -15px;
+  transition: margin-left 0.5s;
+}
+
+div#icones i {
+  margin: 35px 30px 30px 35px;
+}
+
+i.btn {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+i#account {
+  transform: translateX(-20px);
+}
+
+h2#titre {
+  margin-top: 17.5px;
+}
+
+p#sous_titre {
+  color: lightgray;
+}
+
+div#right_corner {
+  margin-left: auto;
+  margin-top: 10px;
+}
+
+i#qrCodePerso {
+  margin: 15px 15px 15px 15px;
+  font-size: 35px;
+  transition: opacity 0.5s;
+}

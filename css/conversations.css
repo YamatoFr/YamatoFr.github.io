@@ -1,0 +1,54 @@
+/* Generated using scss */
+div#discussions {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+div.message {
+  display: flex;
+  /*top->left/right->bottom*/
+  padding: 20px 20px 0px;
+}
+
+div.message p {
+  display: block;
+  padding: 10px;
+  border: 1px solid goldenrod;
+  border-radius: 10px;
+}
+
+div.message p:empty {
+  width: 100%;
+}
+
+div.message.sent {
+  justify-content: flex-end;
+}
+
+div.message.sent p {
+  background-color: gray;
+  animation: message-sent 500ms;
+}
+
+div.message.sent p.awaitSend {
+  background-color: #c5e4ffc5;
+  color: darksalmon;
+}
+
+i.sendButton {
+  align-self: flex-end;
+  background-color: #606c778f;
+  padding: 5px;
+  margin-left: 10px;
+  border-radius: 20px;
+  font-size: medium;
+  transition: all 350ms;
+}
+
+i.awaitSend.done {
+  margin-left: 30px;
+  margin-right: -50px;
+}

@@ -1,0 +1,26 @@
+{
+    "short_name": "WAL",
+    "name": "WhatsAppLike Online tchat",
+    "icons": [
+        {
+            "scr": "./assets/WAL-128.png",
+            "type": "image/png",
+            "size": "128x128"
+        },
+        {
+            "scr": "./assets/WAL-192.png",
+            "type": "image/png",
+            "size": "192x192"
+        },
+        {
+            "scr": "./assets/WAL-512.png",
+            "type": "image/png",
+            "size": "512x512"
+        }
+    ],
+    "display": "standalone",
+    "orientation": "any",
+    "start_url": "/index.html",
+    "background_color": "#505050",
+    "theme_color": "#505050"
+}

@@ -1,0 +1,60 @@
+/* Generated using scss */
+/* note: ne pas utiliser de pourcentage pour les border-radius, pas bon */
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  color: gainsboro;
+  font-family: Arial, Helvetica, sans-serif;
+  user-select: none;
+  outline: none;
+}
+
+body, html {
+  position: relative;
+  overflow: hidden;
+  background-color: #0c0c0c;
+  width: 100%;
+  height: 100%;
+}
+
+input[deactivated],
+i.deactivated {
+  opacity: 0.5;
+}
+
+/* Code snippet from https://css-tricks.com/snippets/css/change-autocomplete-styles-webkit-browsers/
+Modified by me */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 5px solid transparent;
+  -webkit-text-fill-color: #ffe4c4;
+  box-shadow: 0 0 0px 1000px #000333 inset;
+  -webkit-box-shadow: 0 0 0px 1000px #000333 inset;
+}
+
+div.background {
+  /* si vous loucher un peu on peut avoir un effet 3D */
+  background-image: url(/assets/bg-pattern.png);
+  background-repeat: repeat;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.05;
+}
+
+main {
+  position: fixed;
+  display: flex;
+  left: 0px;
+  right: 0px;
+  /*padding-top: 65px;*/
+  height: 100%;
+}
