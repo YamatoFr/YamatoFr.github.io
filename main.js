@@ -26,6 +26,7 @@ const fetchContactsInfos = ID => {
 
 const retract = state => {
 	let section = document.querySelector('section');
+	// quand les 
 	let show = !section.classList.contains('retract');
 
 	if (state == 'toggle') state = show;
