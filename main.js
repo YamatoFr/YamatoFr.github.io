@@ -242,35 +242,35 @@ const ajoutMsg = msg => {
 		msgtxt.innerHTML = msg.message;
 		msglist.insertBefore(ndiv, msglist.lastChild);
 	} else {
-		ndiv.classList.add('edit');
+		ndiv.classList.add('modif');
 		msgtxt.contentEditable = true;
 
-		let btn = document.createElement('i');
-		btn.classList.add('material-icons');
-		btn.classList.add('message-btn');
-		btn.innerHTML = 'send';
+		let button = document.createElement('i');
+		button.classList.add('material-icons');
+		button.classList.add('sendButton');
+		button.innerHTML = 'send';
 
-		btn.onclick = e => {
+		button.onclick = e => {
 			if (msgtxt.innerHTML) {
-				btn.classList.add('sent');
+				button.classList.add('sent');
 				msgtxt.innerHTML = msgtxt.innerHTML.replaceAll('&nbsp;', '').trim();
 				msgtxt.contentEditable = false;
 
 				ajoutMsg();
 
-				sendMessage(selected_contact, msgtxt.innerHTML)
-					.then(res => {
-						if (res.etat.reponse) {
-							ndiv.classList.remove('edit');
-							ndiv.classList.add('right');
-							btn.remove();
-						} else msgtxt.classList.add('not-sent');
+				envoyerMsg(contact_select, msgtxt.innerHTML)
+					.then(response => {
+						if (response.etat.reponse) {
+							ndiv.classList.remove('modif');
+							ndiv.classList.add('sent');
+							button.remove();
+						} else msgtxt.classList.add('awaitSend');
 					})
-					.catch(err => msgtxt.classList.add('not-sent'));
+					.catch(err => msgtxt.classList.add('awaitSend'));
 			}
 		};
 
-		ndiv.appendChild(btn);
+		ndiv.appendChild(button);
 		msglist.appendChild(ndiv);
 
 		msgtxt.focus();
