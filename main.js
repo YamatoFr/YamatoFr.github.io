@@ -6,7 +6,7 @@ const ID = getCookie('id'); /** parce que c'est chiant de retaper l'id */
 const searchParams = new URLSearchParams(location.search);
 
 // This regex can filter dummy adresses
-const mailFilter = msg => /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|nom = document.querySelector('form') |aero|jobs|museum)\b$/.test(msg);
+const mailFilter = mailtxt => /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|nom = document.querySelector('form') |aero|jobs|museum)\b$/.test(mailtxt);
 
 let user = null;
 let contact_select = null;
@@ -16,12 +16,17 @@ const getErr = err => {
 	console.error('Error: ', err);
 };
 
-const fetchContactsInfos = ID => {
+const fetchInfosContact = ID => {
 	for (let ct of user.cts) {
 		if (ct.relation == ID) {
 			return ct;
 		}
 	}
+};
+
+const signUpMail = () => {
+	let email = document.querySelector('input#email');
+	let
 };
 
 const retract = state => {
@@ -298,5 +303,23 @@ const ajoutMsg = msg => {
 		msglist.appendChild(ndiv);
 
 		msgtxt.focus();
+	}
+};
+
+const printMsg = () => {
+	document.querySelector('div#discussions').innerHTML = '';
+
+	if (contact_select) {
+		let ct = fetchInfosContact(contact_select);
+		document.querySelector('h2#titre').innerHTML = ct.identite;
+		document.querySelector('p#sous_titre') = ct.relation;
+
+		ajoutMsg();
+
+		setTimeout(par => {
+			for (let msg of fetchInfosContact(contact_select).msgs) {
+				ajoutMsg(msg);
+			}
+		}, 500);
 	}
 };
