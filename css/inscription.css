@@ -21,8 +21,8 @@ form p {
 }
 
 form i, form input {
-  background-color: #00003f;
-  border: 5px solid #00003f;
+  background-color: #0e0e0f;
+  border: 5px solid #09090a;
   height: 40px;
   font-size: 40px;
 }
@@ -44,7 +44,7 @@ form input {
   font-size: 15px;
 }
 
-form input#identifiant {
+form input#ID {
   flex: 1;
 }
 

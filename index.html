@@ -41,8 +41,7 @@
 			</div>
 
 			<div id="right_corner">
-				<i title="Partager ses infos" id="qrCodePerso" onclick="afficherQR(true);"
-					class="material-icons btn">share</i>
+				<i title="Partager ses infos" id="qrCodePerso" onclick=";" class="material-icons btn">share</i>
 			</div>
 		</header>
 
@@ -52,10 +51,10 @@
 				<form id="SignIn" onsubmit="return false" hidden>
 					<h2> Sign in </h2>
 					<div id="id-field">
-						<input id="identifiant" type="text" placeholder="identifiant">
+						<input id="ID" type="text" placeholder="ID">
 						<i id="connexion" class="material-icons deactivated">check_circle</i>
 						<i id="annulation" class="material-icons">cancel</i>
-						<i id="QRconnect" onclick="afficherQR(false)" class="material-icons" hidden>camera_enhance</i>
+						<i id="QRconnect" onclick="" class="material-icons" hidden>camera_enhance</i>
 						<i id="deconnexion" class="material-icons" hidden>exit_to_app</i>
 					</div>
 					<p id="id-resp"></p>
@@ -66,9 +65,9 @@
 					<div id="mail-field">
 						<input id="pseudo" type="text" placeholder="pseudo" />
 						<input id="email" type="text" placeholder="email" />
-						<i class="material-icons deactivated">send</i>
+						<i class="material-icons deactivated">check_circle</i>
 					</div>
-					<p id="email-resp"></p>
+					<p id="signInfo"></p>
 				</form>
 
 				<p id="infosCts" class="infos" hidden>Loading contacts...</p>
@@ -92,13 +91,13 @@
 				<!-- Permet d'ajouter facilement des contacts -->
 				<template class="contact">
 					<div class="contact">
-						<i className="material-icons vignette">account_box</i>
+						<i class="material-icons vignette">account_box</i>
 						<div class="infos">
 							<span class="pseudo">Lenomde lapersonne</span>
 							<br />
 							<!-- Cette zone sera remplacée par le message précédent...peut-être -->
 							<!-- Affiche l'id de la relation s'il n'y a pas de message-->
-							<span class="id">420</span>
+							<span class="ID">420</span>
 						</div>
 						<!-- Nombre de messages non lus -->
 						<span class="nbmsg">0</span>

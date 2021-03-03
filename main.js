@@ -2,7 +2,7 @@
 
 // Variables globales
 const API = 'https://trankillprojets.fr/wal/wal.php';
-const ID = getCookie('id'); /** parce que c'est chiant de retaper l'id */
+const ID = getCookie('ID'); /** parce que c'est chiant de retaper l'id */
 const searchParams = new URLSearchParams(location.search);
 
 // This regex can filter dummy adresses
@@ -16,6 +16,19 @@ const getErr = err => {
 	console.error('Error: ', err);
 };
 
+const returnButton = par => {
+	document.querySelector('div#discussions').innerHTML = '';
+
+	if (document.querySelector('div#menu').hidden) {
+		selected_contact = null;
+		document.querySelector('div#menu').hidden = false;
+		retract(true);
+		document.querySelector('div.contact.chosen').classList.remove('chosen');
+	} else {
+		retract('toggle')
+	};
+};
+
 const fetchInfosContact = ID => {
 	for (let ct of user.cts) {
 		if (ct.relation == ID) {
@@ -24,9 +37,90 @@ const fetchInfosContact = ID => {
 	}
 };
 
-const signUpMail = () => {
+const verifMail = () => {
 	let email = document.querySelector('input#email');
-	let
+	let pseudo = document.querySelector('input#pseudo');
+	let info = document.querySelector('p#signInfo');
+	let button = document.querySelector('form#SignUp i');
+
+	email.value = email.value.trim().toLowerCase();
+
+	if (email.value == '' || pseudo.value.length < 3) {
+		button.classList.add('deactivated');
+		info.innerHTML = 'A link to your ID will be send via mail.';
+	} else if (mailFilter(email.value)) {
+		button.classList.remove('deactivated');
+		info.innerHTML = 'Click to receive your ID via mail.';
+	} else {
+		button.classList.add('deactivated');
+		info.innerHTML = 'Invalid mail, please enter a valid mail.';
+	}
+};
+
+const verifID = () => {
+	let ID = document.querySelector('input#ID');
+	let resp = document.querySelector('p#id-resp');
+	let connect = document.querySelector('form#SignIn i');
+
+	ID.value = ID.value.trim().toLowerCase();
+
+	if (ID.value.length == '') {
+		connect.classList.add('deactivated');
+		resp.innerHTML = "Enter your ID to login.";
+	} else if (ID.value.length == 64) {
+		// j'aurai aimé connaitre la longueur de l'id AVANT de tout compter...
+		connect.classList.remove('deactivated');
+		resp.innerHTML = 'Click to login.';
+	} else {
+		connect.classList.add('deactivated');
+		resp.innerHTML = 'Invalid ID, please try again.';
+	}
+};
+
+const signMail = () => {
+	let email = document.querySelector('input#email');
+	let pseudo = document.querySelector('input#pseudo')
+
+	const URL = API + '?inscription&identite=' + pseudo.value.trim() + '&mail=' + email.value;
+
+	fetch(URL)
+		.then(reponse => response.json())
+		.then(json => {
+			if (confirm(json.etat.message)) {
+				email.value = '';
+				pseudo.value = '';
+			}
+			verifMail();
+		})
+		.catch(getErr);
+};
+
+const signID = () => {
+	let ID = document.querySelector('input#ID');
+	let resp = document.querySelector('p#id-resp');
+	let connect = document.querySelector('i#connexion');
+	let annuler = document.querySelector('i#annulation');
+
+	ID.disabled = true;
+	resp.innerHTML = 'validating, please wait.';
+	connect.hidden = true;
+	annuler.hidden = false;
+
+	annuler.onclick = par => {
+		if (confirm('cancel ?')) {
+			setCookie('user', '');
+			location.reload;
+		}
+	};
+
+	fetch(API + '?activation=' + ID.value)
+		.then(response => response.json())
+		.then(json => {
+			if (json.etat.reponse) {
+				connexion(json.identifiant);
+			}
+		})
+		.catch(getErr);
 };
 
 const retract = state => {
@@ -59,7 +153,7 @@ const connexion = ID => {
 	let nom = document.querySelector('form#SignIn h2');
 	let info = document.querySelector('p#id-resp');
 	let deconnexion = document.querySelector('i#deconnexion');
-	let annuler = document.querySelector('p#annulation');
+	let annuler = document.querySelector('i#annulation');
 
 	if (!getCookie('user') || searchParams.has('connect')) {
 		setCookie('user', ID);
@@ -111,16 +205,16 @@ const fetchRelas = ID => {
 		.then(reponse => reponse.json())
 		.then(json => {
 			if (!user.cts.length) {
-				setTimeout(par => retriveMsgs(), 1000);
+				setTimeout(par => recupMsgs(), 1000);
 			}
 
 			user.cts = json.relations;
 
-			for (let ct in cts) {
+			for (let ct in user.cts) {
 				ct.msgs = [];
 			}
 
-			document.querySelector('p#infosContacts').hidden = true;
+			document.querySelector('p#signInfo').hidden = true;
 			setTimeout(par => (document.querySelector('div#searchbar').hidden = false), 300);
 			setTimeout(par => printContacts(''), 600);
 			retract(true);
@@ -160,6 +254,31 @@ const linkContact = async ct => {
 	}
 };
 
+const recupMsgs = async () => {
+	let promesses = [];
+
+	for (let ct of user.cts) {
+		promesses.push(
+			fetch(API + '?lire&identifiant=' + user.ID + '&relation=' + ct.relation)
+				.then(response => response.json())
+				.then(json => {
+					// see https://oprearocks.medium.com/what-do-the-three-dots-mean-in-javascript-bc5749439c9a
+					ct.msgs.push(...json.messages);
+
+					if (ct.relation === contact_select) {
+						for (let msg of json.messages) {
+							if (msg.identite != user.pseudo) {
+								ajoutMsg(msg)
+							};
+						}
+					}
+				})
+		);
+	}
+
+	setTimeout(par => recupMsgs(), 1500);
+};
+
 const unlinkContact = (ID, ID_Relation) => {
 	fetch(API + '?delier&identifiant=' + ID + '&relation' + ID_Relation)
 		.then(reponse => reponse.json())
@@ -168,13 +287,15 @@ const unlinkContact = (ID, ID_Relation) => {
 };
 
 const printContacts = () => {
-	setTimeout(par => (document.querySelector('p#rechercher_contact').hidden = user.cts.length > 0), 500);
+	setTimeout(par => {
+		document.querySelector('p#rechercher_contact').hidden = user.cts.length > 0
+	}, 500);
 
 	let menu = document.querySelector('div#menu');
 	let icone = menu.querySelector('div#searchbar i');
 	let txt = menu.querySelector('div#searchbar input').value.trim();
 	let ctslist = menu.querySelector('div#liste-Contacts');
-	let ct_template = menu.querySelector('template.contact');
+	let ct_temp = menu.querySelector('template.contact');
 	let ajout = menu.querySelector('p#ajouter_contact');
 
 	ctslist.innerHTML = '';
@@ -202,8 +323,8 @@ const printContacts = () => {
 				setTimeout(par => {
 					ctslist.appendChild(document.createElement('hr'));
 
-					let ct_card = ct_template.cloneNode(true).textContent.firstChild;
-					ct_card.setAttribute('id', 'ct' + ct.relation);
+					let ct_card = ct_temp.cloneNode(true).textContent.firstElementChild;
+					ct_card.setAttribute('ID', 'ct' + ct.relation);
 
 					// égalité strict, sensible à la casse
 					if (ct.relation === contact_select) {
@@ -211,7 +332,7 @@ const printContacts = () => {
 					}
 
 					let spPseudo = ct_card.querySelector('.pseudo');
-					let spID = ct_card.querySelector('id');
+					let spID = ct_card.querySelector('ID');
 					spID.innerHTML = ct.relation;
 
 					if (txt) {
@@ -221,7 +342,7 @@ const printContacts = () => {
 						spPseudo.innerHTML = ct.identite;
 					}
 
-					ct_template.onclick = par => {
+					ct_temp.onclick = par => {
 						for (let doc of document.querySelectorAll('div.contact')) {
 							doc.classList.remove(chosen);
 						}
@@ -230,19 +351,19 @@ const printContacts = () => {
 						if (par.target.classList.contains('suppr')) {
 							if (confirm('Delete ' + ct.identite + '?')) {
 								retract(true);
-								unlinkContact(user.id, ct.relation);
+								unlinkContact(user.ID, ct.relation);
 								document.querySelector('div#liste-Contacts').innerHTML = '';
 							}
 						} else {
 							setTimeout(par => {
-								sidebar.hidden = true;
+								menu.hidden = true;
 								printMsg();
 							},
 								retract(true) ? 400 : 0
 							);
 
-							ct_template.classList.remove('palu');
-							ct_template.classList.add('chosen');
+							ct_temp.classList.remove('palu');
+							ct_temp.classList.add('chosen');
 							contact_select = ct.relation;
 							idDiv.innerHTML = ct.relation;
 
@@ -267,7 +388,7 @@ const ajoutMsg = msg => {
 	ndiv.appendChild(msgtxt);
 
 	if (msg) {
-		ndiv.classList.add(msg.identite == user.pseudo ? 'right' : 'left');
+		ndiv.classList.add(msg.identite == user.pseudo ? 'sent' : 'received');
 		msgtxt.innerHTML = msg.message;
 		msglist.insertBefore(ndiv, msglist.lastChild);
 	} else {
@@ -321,5 +442,57 @@ const printMsg = () => {
 				ajoutMsg(msg);
 			}
 		}, 500);
+	}
+};
+
+const activateMenu = () => {
+	let ID = document.querySelector('input#ID');
+	let email = document.querySelector('input#email');
+	let pseudo = document.querySelector('input#pseudo');
+	let validate = document.querySelector('div#mail-field i');
+	let login = document.querySelector('div#id-field i');
+
+	setTimeout(() => (document.querySelector('form#SignIn').hidden = false), 500)
+
+	if (!getCookie('user')) {
+		setTimeout(() => (document.querySelector('form#SignUp').hidden = false, 550));
+	}
+
+	pseudo.addEventListener('input', verifMail);
+	email.addEventListener('input', verifMail);
+	ID.addEventListener('input', verifID);
+
+	setTimeout(verifID(), 100);
+	setTimeout(verifMail(), 100);
+
+	validate.addEventListener('click', par => {
+		if (!validate.classList.contains('deactivated')) {
+			validate.classList.add('deactivated');
+			signMail()
+		}
+	});
+
+	login.addEventListener('click', par => {
+		if (!login.classList.contains('deactivated')) {
+			login.classList.add('deactivated');
+			signID();
+		}
+	});
+};
+
+onload = par => {
+	activateMenu();
+
+	let currID = null;
+	if (getCookie('user')) {
+		currID = getCookie('user');
+	}
+	if (searchParams.has('connexion')) {
+		currID = searchParams.get('connexion');
+	}
+	if (currID) {
+		document.querySelector('input#ID').value = currID;
+		verifID();
+		setTimeout(() => document.querySelector('i#connexion').click(), 700);
 	}
 };
