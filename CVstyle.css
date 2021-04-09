@@ -1,0 +1,383 @@
+@media screen and (max-width: 1920px) 
+{
+
+  main > div:nth-child(4) 
+  {
+    margin-top: -2.6% !important;
+  }
+}
+
+@media screen and (max-width: 1366px)
+ {
+
+  main > div:nth-child(4) 
+  {
+    margin-top: -7.5% !important;
+
+  }
+}
+
+@media screen and (max-width: 800px) 
+{
+
+  main > div:nth-child(4) 
+  {
+    margin-top: -5.5% !important;
+  }
+
+  header > div:nth-child(2)
+  {
+    margin-top: -5% !important;
+  }
+
+  header > div:nth-child(2) > h1 
+  {
+    font-size: 1.5em !important;
+  }
+ 
+  header > div:nth-child(1) > img
+  {
+    width: 50% !important;
+    height: 50% !important;
+    margin-left: 15%;  
+  }
+
+  header > div:nth-child(1) > p
+  {
+    margin-top: -1%;
+    font-size: 0.8em !important;
+  }
+
+  header > div:nth-child(2) > p 
+  {
+    font-size: 0.7em !important;
+    word-break: break-all;
+  }
+
+  main > div:nth-child(2) > div:nth-child(2) > table
+  {
+    margin-right: 20% !important;
+  }
+
+  main > div:nth-child(2) > div:nth-child(3) > table 
+  {
+    margin-right: 20% !important;
+  }
+
+  main > div:nth-child(2) > div:nth-child(4) > table 
+  {
+    margin-right: 20% !important;
+  }
+}
+
+@media print
+{
+  /* regle CSS lors de l'impression */
+
+}
+
+*
+{
+	padding: 0px;
+	margin: 0px;
+	box-sizing: border-box;
+	font-family: arial;
+}
+
+html, body
+{
+	width:100%;
+	height:100%;
+}
+
+body
+{
+	margin:auto;
+}
+
+/* regle CSS générique */
+
+@media screen and (min-width: 1024px)
+{
+  /* regle CSS sur ecran d'ordinateur et télévision */
+
+}
+
+@media screen and (max-width: 1024px)
+{
+  /* regle CSS sur tablette */
+
+}
+
+@media screen and (max-width: 600px)
+{
+  /* regle CSS sur smartphone */
+
+}
+
+@media print
+{
+  /* regle CSS lors de l'impression */
+
+}
+
+
+.document
+{
+	margin: 0em;
+}
+
+header, footer
+{
+	display: flex;
+	width: 70%;
+	justify-content: space-around;
+	align-items: center;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0.5em;
+	border-radius: 10px;
+	background-color: #ebebeb;
+}
+
+header
+{
+	height: 25vh; /*le % ne fonctionnait pas*/
+}
+
+header div
+{
+	margin: auto;
+}
+
+header div:nth-child(1)
+{
+	flex: 2;
+}
+
+header img
+{
+	width: 90px;
+}
+
+header div div
+{
+	width: 20%
+	margin-left: 10%;
+	transform: translateX(15%);
+}
+
+header div:nth-child(2)
+{
+	width: 60%;
+	flex: 5;
+}
+
+header div:nth-child(2) h1
+{
+	font-size: 2em;
+}
+
+img
+{
+	border-radius: 50%;
+}
+
+main
+{
+	display: flex;
+	width: 70%;
+	margin-left: 15%;
+}
+
+main h1
+{
+	color: purple;
+	text-decoration: none;
+}
+
+article
+{
+	padding: 1em;
+}
+
+#LSide
+{
+	flex: 1;
+	margin-right: 0.5em;
+	width: 49%;
+}
+
+#RSide
+{
+	flex: 1;
+	margin-left: 0.5em;
+	width: 49%;
+}
+
+#Compétences
+{
+	background-color: #ebebeb;
+	border-radius: 1em;
+	margin-top: 1em;
+	height: auto;
+}
+
+#Compétences div
+{
+	display: flex;
+	width: 100%;
+}
+
+#Jauges
+{
+	display: flex;
+	width: 100%;
+	margin-top: 1em;
+}
+
+li
+{
+	list-style-type: none;
+	margin-top: 0.2em;
+}
+
+#Langages
+{
+	flex: 3;
+	margin-left: 5%;
+}
+
+#Progression
+{
+	flex: 7;
+}
+
+progress
+{
+	appearance: none;
+	width: 90%;
+}
+
+progress::-webkit-progress-bar
+{
+	border-radius: 1em;
+	background-color: pink;
+}
+
+progress::-webkit-progress-value
+{
+	border-radius: 1em;
+	background-color: violet;
+}
+
+#Informations
+{
+	background-color: #ebebeb;
+	border-radius: 1em;
+	margin-top: 1em;
+}
+
+h2
+{
+	color: palevioletred;
+	margin-left: 3%;
+	margin-top: 3%;
+	margin-bottom: 2%;
+	border-style: none none dashed dashed;
+}
+
+video
+{
+	width: 100%;
+	border-radius: 0.1em;
+}
+
+audio
+{
+	width: 100%;
+	border-radius: 0.1em;
+}
+
+#Informations table
+{
+	margin-left: 5%;
+	margin-top: 3%;
+	margin-bottom: 2%;
+}
+
+#Informations table
+{
+	width: 100%;
+}
+
+#Informations img
+{
+	height: 70px;
+	margin-left: 17.5em;
+}
+
+#Informations table img
+{
+	height: 70px;
+	margin-left: 1em;
+}
+
+#Formation
+{
+	background-color: #ebebeb;
+	border-radius: 1em;
+	margin-top: 1em;
+}
+
+#Formation div
+{
+	display: flex;
+	margin-top: 1.5em;
+	margin-right: 1.5em;
+}
+
+#Formation #LSide
+{
+	flex: 1;
+}
+
+#Formation #RSide
+{
+	display: flex;
+	flex: 3;
+	flex-wrap: wrap;
+	flex-direction: column;
+}
+
+#Expérience
+{
+	background-color: #ebebeb;
+	border-radius: 1em;
+	margin-top: 1em;
+}
+
+#Expérience #LSide
+{
+	flex: 1;
+}
+
+#Expérience #Centre
+{
+	margin-left: 5em;
+	margin-top: 3.5em;
+	flex: 3;
+}
+
+#Expérience div
+{
+	display: flex;
+	margin-top: 1.5em;
+	margin-right: 1.5em;
+}
+
+#Expérience img
+{
+	margin-top: 1.5em;
+	width: 5em;
+}
