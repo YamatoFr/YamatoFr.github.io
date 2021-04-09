@@ -1,0 +1,76 @@
+/* Generated using scss */
+section.retract-forms form#SignIn {
+	margin-top: -140px;
+}
+
+form {
+	margin: 20px;
+	background-color: #2d2d31;
+	border: 15px solid #2d2d31;
+	border-radius: 15px;
+	animation: appear-top 0.5s;
+	transition: margin 0.5s;
+
+	h2 {
+		margin-bottom: 10px;
+	}
+
+	p {
+		color: lightblue;
+	}
+
+	i, input {
+		background-color: #0e0e0f;
+		border: 5px solid #09090a;
+		height: 40px;
+		font-size: 40px;
+	}
+
+	i {
+		margin-left: 5px;
+		width: 40px;
+		border-radius: 20px;
+		font-size: 25px;
+	}
+
+	i[hidden] {
+		display: none;
+	}
+
+	input {
+		min-width: 10px;
+		padding: 0px 10px;
+		font-size: 15px;
+	}
+
+	input#ID {
+		flex: 1;
+	}
+
+	input#pseudo {
+		flex: 1;
+		margin-right: 5px;
+	}
+
+	input#email {
+		flex: 1.5;
+	}
+}
+
+div#id-field {
+	display: flex;
+	margin: 10px 0px 12px 0px;
+
+	i {
+		padding: 3px 0px 0px 3px;
+	}
+}
+
+div#mail-field {
+	display: flex;
+	margin: 10px 0px 12px 0px;
+
+	i {
+		padding: 3px 0px 0px 4px;
+	}
+}

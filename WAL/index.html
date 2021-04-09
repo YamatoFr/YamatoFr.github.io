@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- Automatically generated using emmet abbreviation -->
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Control layout on mobile browsers -->
+
+	<meta name="shortcut icon" type="image/png" href="./chat.png"> <!-- la petite image dans l'onglet -->
+	<meta name="theme-color" content="#808080"> <!-- Only works on Chrome* and Samsung internet -->
+	<meta name="color-scheme" content="dark"> <!-- Dark mode -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/header.css">
+	<link rel="stylesheet" href="css/menu.css">
+	<link rel="stylesheet" href="css/inscription.css">
+	<link rel="stylesheet" href="css/animations.css">
+	<link rel="stylesheet" href="css/conversations.css">
+
+	<!-- Controls website's behavior -->
+	<link rel="manifest" href="manifest.json">
+
+	<title>WAL | WhatsAppLike</title>
+</head>
+
+<body>
+	<section>
+		<div class="background"></div>
+
+		<header>
+			<div id="icones">
+				<i id="return" title="Retour" onclick="returnButton(event)" class="material-icons btn">arrow_back</i>
+				<i id="account" class="material-icons">person_pin</i>
+			</div>
+
+			<div id="titres">
+				<h2 id="titre">WhatsAppLike</h2>
+				<p id="sous_titre">Home</p>
+			</div>
+
+			<div id="right_corner">
+				<i title="Partager ses infos" id="qrCodePerso" onclick=";" class="material-icons btn">share</i>
+			</div>
+		</header>
+
+		<main>
+			<!-- je renommerai 2 3 trucs plus tard -->
+			<div id="menu">
+				<form id="SignIn" onsubmit="return false" hidden>
+					<h2> Sign in </h2>
+					<div id="id-field">
+						<input id="ID" type="text" placeholder="ID">
+						<i id="connexion" class="material-icons deactivated">check_circle</i>
+						<i id="annulation" class="material-icons">cancel</i>
+						<i id="QRconnect" onclick="" class="material-icons" hidden>camera_enhance</i>
+						<i id="deconnexion" class="material-icons" hidden>exit_to_app</i>
+					</div>
+					<p id="id-resp"></p>
+				</form>
+
+				<form id="SignUp" onsubmit="return false" hidden>
+					<h2>Sign up</h2>
+					<div id="mail-field">
+						<input id="pseudo" type="text" placeholder="pseudo" />
+						<input id="email" type="text" placeholder="email" />
+						<i class="material-icons deactivated">check_circle</i>
+					</div>
+					<p id="signInfo"></p>
+				</form>
+
+				<p id="infosCts" class="infos" hidden>Loading contacts...</p>
+
+				<div id="searchbar" hidden>
+					<i onclick="ajoutContact(event)" class="material-icons"></i>
+					<input type="text" placeholder="search or add a contact" oninput="afficherContacts()"
+						onclick="if (!document.querySelector('div#menu').hidden) retract(true)">
+				</div>
+
+				<br />
+
+				<p class="infos" id="rechercher_contact" hidden>Enter a valid mail address to add a contact. </p>
+				<p class="infos" id="ajouter_contact" hidden>Click on <i
+						style="color: inherit; transform: translateY(4px); font-size: 18px"
+						class="material-icons">person_add</i> to add the contact. </p>
+				<p class="infos" id="ajout_en_cours" hidden>Adding contact...</p>
+
+				<div id="liste-Contacts"></div>
+
+				<!-- Permet d'ajouter facilement des contacts -->
+				<template class="contact">
+					<div class="contact">
+						<i class="material-icons vignette">account_box</i>
+						<div class="infos">
+							<span class="pseudo">Lenomde lapersonne</span>
+							<br />
+							<!-- Cette zone sera remplacée par le message précédent...peut-être -->
+							<!-- Affiche l'id de la relation s'il n'y a pas de message-->
+							<span class="ID">420</span>
+						</div>
+						<!-- Nombre de messages non lus -->
+						<span class="nbmsg">0</span>
+						<i class="material-icons suppr">phonelink_erase</i>
+					</div>
+				</template>
+
+				<div id="discussions"></div>
+			</div>
+		</main>
+	</section>
+	<script src="./cookies.js"></script>
+	<script src="./main.js"></script>
+</body>
+
+
+</html>

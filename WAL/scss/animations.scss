@@ -1,0 +1,58 @@
+/* Generated using scss */
+@keyframes appear {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes appear-left {
+	from {
+		opacity: 0;
+		transform: translateX(-50px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0px);
+	}
+}
+
+@keyframes appear-top {
+	from {
+		opacity: 0;
+		transform: translateY(-50px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0px);
+	}
+}
+
+@keyframes appear-rescale {
+	from {
+		transform: translate(-50px, -50px) scale(0.9);
+	}
+	to {
+		transform: translate(-50%, -50%);
+	}
+}
+
+@keyframes message-sent {
+	from {
+		transform: translateX(calc(100% + 20px));
+	}
+	to {
+		transform: none;
+	}
+}
+
+@keyframes message-received {
+	from {
+		transform: translateX(calc(-100% - 20px));
+	}
+	to {
+		transform: none;
+	}
+}
